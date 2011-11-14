@@ -5,6 +5,7 @@ using System.Linq;
 
 using CIAPI;
 using CIAPI.DTO;
+using CIAPI.Rpc;
 using CIAPI.Streaming;
 using Common.Logging;
 
@@ -17,15 +18,25 @@ namespace SimpleCiapiTest
 		private const string USERNAME = "";
 		private const string PASSWORD = "";
 
-		public static void SubscribeToStreams()
+		public void Login()
 		{
 			var adapter = new MyLoggerFactoryAdapter(null) { OnMessage = AddLogMessage };
 			LogManager.Adapter = adapter;
 
-			var client = new CIAPI.Rpc.Client(RPC_URI);
-			client.LogIn(USERNAME, PASSWORD);
+			_client = new Client(RPC_URI);
+			_client.LogIn(USERNAME, PASSWORD);
+		}
 
-			var streamingClient = StreamingClientFactory.CreateStreamingClient(STREAMING_URI, USERNAME, client.Session);
+		public void Logout()
+		{
+			_client.LogOut();
+			_client.Dispose();
+			_client = null;
+		}
+
+		public void SubscribeToStreams()
+		{
+			var streamingClient = StreamingClientFactory.CreateStreamingClient(STREAMING_URI, USERNAME, _client.Session);
 
 			var marginListener = streamingClient.BuildClientAccountMarginListener();
 			marginListener.MessageReceived +=
@@ -41,8 +52,18 @@ namespace SimpleCiapiTest
 			streamingClient.TearDownListener(pricesListener);
 			streamingClient.TearDownListener(marginListener);
 			streamingClient.Dispose();
-			client.LogOut();
-			client.Dispose();
+		}
+
+		public void TestTradeHistory()
+		{
+			var accounts = _client.AccountInformation.GetClientAndTradingAccount();
+			const int maxResults = 100;
+
+			int tradingAccountId = accounts.CFDAccount.TradingAccountId;
+			var response = _client.TradesAndOrders.ListTradeHistory(tradingAccountId, maxResults);
+
+			tradingAccountId = accounts.SpreadBettingAccount.TradingAccountId;
+			var response2 = _client.TradesAndOrders.ListTradeHistory(tradingAccountId, maxResults);
 		}
 
 		static void AddLogMessage(LogLevel level, object message, Exception exception)
@@ -60,5 +81,7 @@ namespace SimpleCiapiTest
 
 			Trace.WriteLine(string.Format("{0} {1}", DateTime.UtcNow, text));
 		}
+
+		private Client _client;
 	}
 }

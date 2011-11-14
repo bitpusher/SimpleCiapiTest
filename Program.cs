@@ -11,15 +11,13 @@ namespace SimpleCiapiTest
 	{
 		static void Main(string[] args)
 		{
-			Example.SubscribeToStreams();
+			var example = new Example();
+			example.Login();
+
+			example.TestTradeHistory();
+			//example.SubscribeToStreams();
+
+			example.Logout();
 		}
-
-		//Action action =
-		//    () => Thread.Sleep(Timeout.Infinite);
-
-		//for (int i = 0; i < 50; i++)
-		//{
-		//    action.BeginInvoke(null, null);
-		//}
 	}
 }
