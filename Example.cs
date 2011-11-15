@@ -79,7 +79,7 @@ namespace SimpleCiapiTest
 
 			var text = val.ToString() + Environment.NewLine;
 
-			Trace.WriteLine(string.Format("{0} {1}", DateTime.UtcNow, text));
+			Console.WriteLine(string.Format("{0} {1}", DateTime.UtcNow, text));
 		}
 
 		private Client _client;

@@ -11,13 +11,20 @@ namespace SimpleCiapiTest
 	{
 		static void Main(string[] args)
 		{
-			var example = new Example();
-			example.Login();
+			try
+			{
+				var example = new Example();
+				example.Login();
 
-			example.TestTradeHistory();
-			//example.SubscribeToStreams();
+				example.TestTradeHistory();
+				//example.SubscribeToStreams();
 
-			example.Logout();
+				example.Logout();
+			}
+			catch (Exception exc)
+			{
+				Console.WriteLine(exc);
+			}
 		}
 	}
 }
