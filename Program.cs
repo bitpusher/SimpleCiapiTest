@@ -18,6 +18,7 @@ namespace SimpleCiapiTest
 
 				example.TestTradeHistory();
 				//example.SubscribeToStreams();
+				//example.TestUpdateOrder();
 
 				example.Logout();
 			}

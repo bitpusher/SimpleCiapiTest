@@ -1,45 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-using Common.Logging;
-using Common.Logging.Simple;
+using Salient.ReflectiveLoggingAdapter;
 
 namespace SimpleCiapiTest
 {
-	class MyLogger : AbstractSimpleLogger
+	class MyLogger : AbstractAppender
 	{
-		public MyLogger(string logName, LogLevel logLevel, bool showlevel, bool showDateTime,
-				bool showLogName, string dateTimeFormat)
-			: base(logName, logLevel, showlevel, showDateTime, showLogName, dateTimeFormat)
+		public MyLogger(string logName, LogLevel logLevel, bool showLevel, bool showDateTime, bool showLogName, string dateTimeFormat)
+			: base(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat)
 		{
 		}
-
+		public static Action<LogLevel, object, Exception> OnMessage;
 		protected override void WriteInternal(LogLevel level, object message, Exception exception)
 		{
 			OnMessage(level, message, exception);
 		}
-
-		public Action<LogLevel, object, Exception> OnMessage;
-	}
-
-	class MyLoggerFactoryAdapter : AbstractSimpleLoggerFactoryAdapter
-	{
-		public MyLoggerFactoryAdapter(NameValueCollection properties)
-			: base(properties)
-		{
-		}
-
-		protected override ILog CreateLogger(string name, LogLevel level, bool showLevel,
-			bool showDateTime, bool showLogName, string dateTimeFormat)
-		{
-			var res = new MyLogger(name, level, showLevel, showDateTime, showLogName, dateTimeFormat);
-			res.OnMessage = OnMessage;
-			return res;
-		}
-
-		public Action<LogLevel, object, Exception> OnMessage;
 	}
 }
