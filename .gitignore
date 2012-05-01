@@ -27,11 +27,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-~$*.xlsx
-~$*.xlsm
-Forex TJS Pro v7.6.5.xlsx
 temp/
 
-src/_setup
-
-_setup/
+!src/packages/*
