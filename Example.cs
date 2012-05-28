@@ -13,11 +13,6 @@ namespace SimpleCiapiTest
 {
 	class Example
 	{
-		private static readonly Uri RPC_URI = new Uri("https://ciapi.cityindex.com/TradingAPI");
-		private static readonly Uri STREAMING_URI = new Uri("https://push.cityindex.com/");
-		private const string USERNAME = "";
-		private const string PASSWORD = "password";
-
 		public void Login()
 		{
 			MyLogger.OnMessage = AddLogMessage;
@@ -29,8 +24,8 @@ namespace SimpleCiapiTest
 				return new MyLogger(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat);
 			};
 
-			_client = new Client(RPC_URI, STREAMING_URI, "");
-			_client.LogIn(USERNAME, PASSWORD);
+			_client = new Client(Const.RPC_URI, Const.STREAMING_URI, "");
+			_client.LogIn(Const.USERNAME, Const.PASSWORD);
 		}
 
 		public void Logout()

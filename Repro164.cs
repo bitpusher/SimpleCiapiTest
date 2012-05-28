@@ -21,13 +21,13 @@ namespace SimpleCiapiTest
 
 		private static void DoPolling()
 		{
-			var client = new Client(RPC_URI, STREAMING_URI, "Test.{B4E415A7-C453-4867-BDD1-C77ED345777B}");
+			var client = new Client(Const.RPC_URI, Const.STREAMING_URI, "Test.{B4E415A7-C453-4867-BDD1-C77ED345777B}");
 			try
 			{
 				client.AppKey = "Test";
 				client.StartMetrics();
 
-				client.LogIn(USERNAME, PASSWORD);
+				client.LogIn(Const.USERNAME, Const.PASSWORD);
 
 				for (int i = 0; i < 10; i++)
 				{
@@ -47,10 +47,5 @@ namespace SimpleCiapiTest
 				client.Dispose();
 			}
 		}
-
-		private static readonly Uri RPC_URI = new Uri("https://ciapi.cityindex.com/TradingAPI");
-		private static readonly Uri STREAMING_URI = new Uri("https://push.cityindex.com/");
-		private const string USERNAME = "";
-		private const string PASSWORD = "password";
 	}
 }
