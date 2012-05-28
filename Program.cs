@@ -13,14 +13,16 @@ namespace SimpleCiapiTest
 		{
 			try
 			{
-				var example = new Example();
-				example.Login();
+				//var example = new Example();
+				//example.Login();
 
-				example.TestTradeHistory();
+				//example.TestTradeHistory();
 				//example.SubscribeToStreams();
 				//example.TestUpdateOrder();
 
-				example.Logout();
+				//example.Logout();
+
+				Repro164.Test();
 			}
 			catch (Exception exc)
 			{

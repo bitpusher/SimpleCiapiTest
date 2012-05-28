@@ -15,8 +15,8 @@ namespace SimpleCiapiTest
 	{
 		private static readonly Uri RPC_URI = new Uri("https://ciapi.cityindex.com/TradingAPI");
 		private static readonly Uri STREAMING_URI = new Uri("https://push.cityindex.com/");
-		private const string USERNAME = "DM593504";
-		private const string PASSWORD = "qweqwe";
+		private const string USERNAME = "";
+		private const string PASSWORD = "password";
 
 		public void Login()
 		{
